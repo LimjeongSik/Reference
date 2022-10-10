@@ -1,0 +1,28 @@
+.container-fluid {
+  display:flex;
+  flex-direction:column;
+  min-height:3000px;
+  background: #FFEFCA;
+  overflow-x:hidden;
+  padding-top:500px;
+}
+.marquee {
+  width:100%;
+  display:flex;
+}
+.marquee p {
+  font-size:1.5rem;
+  padding:1rem 0;
+  text-transform:uppercase;
+}
+.marquee:nth-child(1) {
+  margin-top:5rem;
+  transform:rotate(-2deg);
+  background:#FFD200;
+}
+.marquee:nth-child(2) {
+  margin-top:5rem;
+  transform:rotate(2deg);
+  background:#B39E6A;
+  justify-content:flex-end;
+}

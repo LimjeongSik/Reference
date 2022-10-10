@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<?php include 'php/common_header.php' ?>
+<title>Scroll TEXT</title>
+<link rel="stylesheet" href="css/scrolltext.css">
+<body>
+ <div class="container-fluid">
+    <div class="marquee"><p class="one"></p></div>
+    <div class="marquee"><p class="two"></p></div>
+ </div>
+
+
+
+<script>
+  let one = document.querySelector('.one');
+  let two = document.querySelector('.two');
+
+  let textarea1 = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'.split(' ')
+  let textarea2 = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'.split(' ')
+
+  function initsTexts(element, textArray){
+    textArray.push(...textArray)
+    for (let i = 0; i < textArray.length; i++){
+      element.innerText += `${textArray[i]}\u00A0\u00A0\u00A0\u00A0`;
+    }
+  }
+  initsTexts(one,textarea1)
+  initsTexts(two,textarea2)
+
+  function marqueeText(count, element, direction){
+    if(count > element.scrollWidth /2){
+      element.style.transform = 'translateX(0)';
+      count = 0;
+    }
+    element.style.transform = `translateX(${count * direction}px)`;
+    return count;
+  }
+  let count1 = 0;
+  let count2 = 0;
+  function animate(){
+    count1++
+    count2++
+
+    count1 = marqueeText(count1, one, -1)
+    count2 = marqueeText(count2, two, 1)
+
+    window.requestAnimationFrame(animate)
+  }
+  animate();
+
+  window.addEventListener('scroll',() => {
+    count1 += 15;
+    count2 += 15;
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<?php include 'php/common_header.php' ?>
+<title>Scroll Transition</title>
+<link rel="stylesheet" href="css/scrolltransition.css">
+<body>
+ <div class="container-fluid">
+   <section class="sec"><h2 class="title">Scroll transition</h2></section>
+   <section class="sec offset-left"><img src="images/img.png" alt="" class="img"></section>
+   <section class="sec"></section>
+   <section class="sec"></section>
+   <section class="sec"></section>
+ </div>
+
+
+<script src="js/gsap.min.js" charset="utf-8"></script>
+<script src="js/ScrollTrigger.min.js" charset="utf-8"></script>
+<script>
+  let container = document.querySelector('.offset-left');
+  let containerOffsetTop = container.offsetTop;
+  let containerOffsetHeight = container.offsetHeight;
+  let img = document.querySelector('.img');
+  window.addEventListener('scroll',function(){
+    let windowScrollY = window.scrollY;
+    let windowInnerHeight = window.innerHeight;
+    let ratio = (windowScrollY + windowInnerHeight - containerOffsetTop) / containerOffsetHeight;
+
+      img.style.opacity = ratio;
+      img.style.left = (50 * ratio) + '%';
+
+      if(windowScrollY >= containerOffsetHeight){
+        img.style.left = '50%';
+      }
+  });
+</script>
+</body>
+</html>

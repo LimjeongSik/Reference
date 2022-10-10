@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<?php include 'php/common_header.php' ?>
+<title>Dot menu</title>
+<link rel="stylesheet" href="css/dotmenu.css">
+<body>
+  <div class="container-fluid">
+    <header>
+      <nav class="menu">
+        <ul>
+          <li class="on"><a href="#">M1</a></li>
+          <li><a href="#">M2</a></li>
+          <li><a href="#">M3</a></li>
+          <li><a href="#">M4</a></li>
+          <li><a href="#">M5</a></li>
+          <li><a href="#">M6</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="contents">
+      <div class="section section1" style=--bc:#1C191C;></div>
+      <div class="section section2" style=--bc:#2A272A;></div>
+      <div class="section section3" style=--bc:#4B4A54;></div>
+      <div class="section section4" style=--bc:#677381;></div>
+      <div class="section section5" style=--bc:#82A0AA;></div>
+      <div class="section section6" style=--bc:#A3CFCD;></div>
+    </div>
+  </div>
+
+  <script>
+  function menuScroll(){
+    let menuDot = document.querySelectorAll('.menu ul li');
+    let section = document.querySelectorAll('.section');
+
+    menuDot.forEach((item,idx) => {
+
+      item.addEventListener('click',(e)=>{
+        e.preventDefault();
+        let secTop = section[idx].offsetTop;
+        window.scrollTo({ top: secTop, behavior: "smooth"});
+      });
+    });
+
+
+
+    window.addEventListener('scroll', ()=>{
+      let scrollTop = window.scrollY || document.documentElement.offsetTop || window.pageYOffset;
+      section.forEach((item,idx) => {
+        if(scrollTop >= item.offsetTop - 50){
+          menuDot.forEach((item) => {
+            item.classList.remove('on');
+          });
+          document.querySelector(`.menu ul li:nth-child(${idx+1})`).classList.add('on');
+        }
+      });
+    });
+  }
+  window.addEventListener('resize', menuScroll());
+  </script>
+</body>
+</html>
