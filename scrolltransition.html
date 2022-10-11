@@ -23,22 +23,19 @@
 
 <script src="js/gsap.min.js" charset="utf-8"></script>
 <script src="js/ScrollTrigger.min.js" charset="utf-8"></script>
+
 <script>
   let container = document.querySelector('.offset-left');
   let containerOffsetTop = container.offsetTop;
   let containerOffsetHeight = container.offsetHeight;
   let img = document.querySelector('.img');
+
   window.addEventListener('scroll',function(){
     let windowScrollY = window.scrollY;
     let windowInnerHeight = window.innerHeight;
     let ratio = (windowScrollY + windowInnerHeight - containerOffsetTop) / containerOffsetHeight;
-
-      img.style.opacity = ratio;
-      img.style.left = (50 * ratio) + '%';
-
-      if(windowScrollY >= containerOffsetHeight){
-        img.style.left = '50%';
-      }
+    
+    img.style.left = Math.min(50 , 50 * ratio) + '%'
   });
 </script>
 </body>
