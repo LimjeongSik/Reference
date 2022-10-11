@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/slide.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/mouseeffect.css">
+  <title>Mouse Effect</title>
+</head>
+<body>
+  <div id="root__" class="container-fluid">
+    <div class="cursor"></div>
+    <ul class="mousemove">
+      <li>clientX: <span class="clientX">0</span>px</li>
+      <li>clientY: <span class="clientY">0</span>px</li>
+      <li>offsetX: <span class="offsetX">0</span>px</li>
+      <li>offsetY: <span class="offsetY">0</span>px</li>
+      <li>pageX: <span class="pageX">0</span>px</li>
+      <li>pageY: <span class="pageY">0</span>px</li>
+      <li>screenX: <span class="screenX">0</span>px</li>
+      <li>scrrenY: <span class="screenY">0</span>px</li>
+    </ul>
+  </div>
+
+  <script>
+    // 출력
+    let mousemove = document.querySelector('.mousemove');
+    window.addEventListener('mousemove',(e)=>{
+      let clientX = e.clientX;
+      let clientY = e.clientY;
+      let offsetX = e.offsetX;
+      let offsetY = e.offsetY;
+      let pageX = e.pageX;
+      let pageY = e.pageY;
+      let screenX = e.screenX;
+      let screenY = e.screenY;
+      mousemove.querySelector('.clientX').textContent = clientX;
+      mousemove.querySelector('.clientY').textContent = clientY;
+      mousemove.querySelector('.offsetX').textContent = offsetX;
+      mousemove.querySelector('.offsetY').textContent = offsetY;
+      mousemove.querySelector('.pageX').textContent = pageX;
+      mousemove.querySelector('.pageY').textContent = pageY;
+      mousemove.querySelector('.screenX').textContent = screenX;
+      mousemove.querySelector('.screenY').textContent = screenY;
+    });
+    
+  </script>
+
+</body>
+</html>
