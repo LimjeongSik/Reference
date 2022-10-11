@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/slide.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/magnetic.css">
+  <title>Magnetic Button</title>
+</head>
+<body>
+    <div id="root__" class="container-fluid">
+        <a href="#">
+            <span>get in thouch</span>
+        </a>
+    </div>
+
+    <script src="js/gsap.min.js"></script>
+    <script>
+        function magneticButton(elem){
+            const children = elem.children[0]
+
+            elem.addEventListener('mousemove',(e)=>{
+                const { offsetLeft, offsetTop, offsetWidth, offsetHeight} = elem;
+                const left = e.pageX - offsetLeft
+                const top = e.pageY - offsetTop
+                const centerX = left - offsetWidth / 2
+                const centerY = top - offsetHeight / 2
+                const d = Math.sqrt(centerX**2 + centerY**2)
+
+                gsap.to(elem, {
+                    duration: 1,
+                    x: centerX / 1.65,
+                    y: centerY / 1.65,
+                    ease: Elastic.easeOut
+                })
+
+                children.style.transform = `
+                translate3d(${centerX / 4}px, ${centerY / 4}px, 0)
+                rotate3d(${-centerY /100}, ${centerX / 100}, 0, ${d / 10}deg)
+                `
+            })
+            elem.addEventListener('mouseleave',()=>{
+                gsap.to(elem, {
+                    duration: 2,
+                    x: 0,
+                    y: 0,
+                    ease: Elastic.easeOut.config(1,0.1)
+                })
+                children.style.transform = ``
+            })
+        }
+
+        const a = document.querySelector('a');
+        magneticButton(a)
+
+    </script>
+</body>
+</html>
