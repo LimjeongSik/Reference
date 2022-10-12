@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/slide.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/button.css">
+  <title>Scroll TEXT</title>
+</head>
+<body>
+ <div id="root__">
+    <button>Click!!</button>
+ </div>
+
+
+
+
+ <script>
+    let button = document.querySelector('button');
+    
+    const onClick = e => {
+        const {x , y, width , height} = button.getBoundingClientRect()
+        const radius = Math.sqrt(width**2 + height**2)
+        button.style.setProperty('--diameter' , radius * 2 + 'px')
+        const {clientX , clientY} = e
+        const left = (clientX - x - radius) / width * 100 + '%'
+        const top = (clientY - y - radius) / height * 100 + '%'
+        
+        button.style.setProperty('--left' , left)
+        button.style.setProperty('--top' , top)
+        button.style.setProperty('--ani' , '')
+        setTimeout(()=>{button.style.setProperty('--ani' , 'animate 500ms linear')})
+    }
+    button.addEventListener('click', onClick)
+ </script>
+</body>
+</html>
