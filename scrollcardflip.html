@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/slide.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/scrollcardflip.css">
+  <title>Scroll Card Flip</title>
+</head>
+<body>
+ <div id="__root">
+    <div class="sticky flex">
+        <div class="card-wrap flex">
+            <div class="card flex">
+                <div class="card-main flex">Main</div>
+                <div class="card-back flex">Back</div>
+            </div>
+            <div class="card flex">
+                <div class="card-main flex">Main</div>
+                <div class="card-back flex">Back</div>
+            </div>
+            <div class="card flex">
+                <div class="card-main flex">Main</div>
+                <div class="card-back flex">Back</div>
+            </div>
+            <div class="card flex">
+                <div class="card-main flex">Main</div>
+                <div class="card-back flex">Back</div>
+            </div>
+        </div>
+    </div>
+ </div>
+
+
+
+ <script>
+    'use strict';
+    class ScrollCardOnFlip {
+        constructor(wrapper, sticky) {
+            this.wrapper = wrapper
+            this.sticky = sticky
+            this.cards = sticky.querySelectorAll('.card')
+            this.length = this.cards.length
+
+            this.start = 0
+            this.end = 0
+            this.step = 0
+        }
+        init() {
+            this.start = this.wrapper.offsetTop;
+            this.end = this.wrapper.offsetTop + this.wrapper.offsetHeight - innerHeight * 1.2;
+            this.step = (this.end - this.start) / (this.length * 2)
+            console.log(this.step)
+        }
+        animate() {
+            this.cards.forEach((item, idx) => {
+                let s = this.start + this.step * idx
+                let e = s + this.step * (this.length + 1)
+                if(scrollY <= s){
+                    item.style.transform = `
+                        perspective(100vw)
+                        translateX(100vw)
+                        rotateY(180deg)
+                    `
+                }else if (scrollY > s && scrollY <= e - this.step){
+                    item.style.transform = `
+                        perspective(100vw)
+                        translateX(${100 + (scrollY - s) / (e - s) * -100}vw)
+                        rotateY(180deg)
+                    `
+                }else if (scrollY > e - this.step && scrollY <= e){
+                    item.style.transform = `
+                        perspective(100vw)
+                        translateX(${100 + (scrollY - s) / (e - s) * -100}vw)
+                        rotateY(${180 + -(scrollY - (e - this.step)) / this.step * 180}deg)
+                    `
+                }else if (scrollY > e){
+                    item.style.transform = `
+                        perspective(100vw)
+                        translateX(0vw)
+                        rotateY(0deg)
+                    `
+                }
+            });
+        }
+    }
+
+    let mainContent = document.querySelector('#__root');
+    let sticky = document.querySelector('.sticky');
+    const scrollCardOnFlip = new ScrollCardOnFlip(mainContent , sticky);
+    scrollCardOnFlip.init()
+
+    window.addEventListener('scroll', () => {
+        scrollCardOnFlip.animate()
+    })
+    window.addEventListener('resize', () => {
+        scrollCardOnFlip.init()
+    })
+
+ </script>
+</body>
+</html>
