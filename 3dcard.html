@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/slide.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/3dcard.css">
+  <title>3D Card</title>
+</head>
+<body>
+    <div class="wrap">
+        <div class="cardFrame">
+            <div class="card">
+                <div class="lig"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        'use strict';
+        let cardFrame = document.querySelector('.cardFrame')
+        let card = document.querySelector('.card')
+        let lig = document.querySelector('.lig')
+        let {x , y , width , height} = cardFrame.getBoundingClientRect()
+
+        function mouseMove(e){
+            const left = e.clientX - x
+            const top = e.clientY - y
+            const centerX = left - width / 2
+            const centerY = top - height / 2
+            const d = Math.sqrt(centerX**2 + centerY**2)
+            
+            card.style.boxShadow = `
+                ${-centerX / 10}px ${-centerY / 10}px 10px rgba(0,0,0,0.3)
+            `
+            card.style.transform = `
+            rotate3d(
+                ${-centerY / 100}, ${centerX / 100} , 0 , ${d / 10}deg
+            )
+            `
+            lig.style.backgroundImage = `
+                radial-gradient(
+                    circle at ${left}px ${top}px, #00000010, #ffffff01, #ffffff70 
+                )
+            `
+        }
+
+        cardFrame.addEventListener('mouseenter', () =>{
+            cardFrame.addEventListener('mousemove', mouseMove)
+        })
+        cardFrame.addEventListener('mouseleave', () =>{
+            cardFrame.removeEventListener('mousemove', mouseMove)
+            card.style.transform = ''
+            card.style.boxShadow = ''
+            lig.style.backgroundImage = ''
+        })
+    </script>
+</body>
+</html>
