@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/slide.min.css">
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/scrollfolder.css">
+  <title>Scroll Folder</title>
+</head>
+<body>
+    <div class="sectionstart"></div>
+    <div class="main">
+      <div class="sticky">
+        <div class="section">
+          <div class="title">Section 1</div>
+          <div class="contents"></div>
+        </div>
+        <div class="section">
+          <div class="title">Section 2</div>
+          <div class="contents"></div>
+        </div>
+        <div class="section">
+          <div class="title">Section 3</div>
+          <div class="contents"></div>
+        </div>
+        <div class="section">
+          <div class="title">Section 4</div>
+          <div class="contents"></div>
+        </div>
+      </div>
+    </div>
+    <div class="sectionend"></div>
+    <div class="sectionend"></div>
+    <div class="sectionend"></div>
+    <div class="sectionend"></div>
+
+    <script>
+        'use strict';
+        
+        class ScrollFolder {
+          constructor(wrapper , sticky) {
+            this.wrapper = wrapper
+            this.sticky = sticky
+            this.children = this.sticky.querySelectorAll('.section')
+            this.length = this.children.length
+            this.headerVh = 6
+            this.contentVh =  100 - this.headerVh * this.length
+            this.start = 0
+            this.end = 0
+          }
+          
+          init(){
+            this.start = this.wrapper.offsetTop + 100
+            this.end = this.wrapper.offsetTop + this.wrapper.offsetHeight - innerHeight - 100
+            
+            this.children.forEach((item,i)=>{
+              item.style.bottom = `${-100 + this.headerVh * (this.length - i)}vh`
+              item.querySelector('.title').style.height = `${this.headerVh}vh`
+              item.querySelector('.contents').style.height = `${this.contentVh}vh`
+            })
+          
+          }
+
+          animate(){
+            this.children.forEach((item,i) =>{
+              const unit = (this.end - this.start) / this.length
+              const s = this.start + unit * i + 100
+              const e = this.start + unit * (i + 1)
+
+              if(scrollY <= s){
+                item.style.transform = 'translate3d(0,0,0)'
+              }else if (scrollY >= e){
+                item.style.transform = `
+                  translate3d(0,${- this.contentVh}%,0)
+                `
+              }else {
+                item.style.transform = `
+                  translate3d(0,${(scrollY - s) / (unit - 100) * (-this.contentVh) }%,0)
+                `
+              }
+            })
+          }
+        }
+        
+        let main = document.querySelector('.main')
+        let sticky = document.querySelector('.sticky')
+        let folderScroll = new ScrollFolder(main , sticky)
+        folderScroll.init()
+        window.addEventListener('scroll',()=>{
+          folderScroll.animate()
+        })
+        window.addEventListener('resize',()=>{
+          folderScroll.init()
+        })
+    </script>
+</body>
+</html>

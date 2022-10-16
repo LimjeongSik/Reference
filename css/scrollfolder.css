@@ -1,0 +1,33 @@
+.main {
+    width:100%;
+    height:300vh;
+}
+.sticky {
+    width:100%;
+    height:100vh;
+    position:sticky;
+    top:0;
+    overflow:hidden;
+}
+.section {
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-color: antiquewhite;
+}
+.title {
+    border-top:1px solid #222;
+    background-color: aliceblue;
+    display:flex;
+    align-items:center;
+    padding:0 1rem;
+    box-sizing:border-box;
+}
+.sectionstart {
+    height:100vh;
+    background-color: beige;
+}
+.sectionend {
+    height:100vh;
+    background-color: aqua;
+}
