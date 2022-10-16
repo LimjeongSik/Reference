@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/slide.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/scrollprogress.css">
+    <title>Scroll Progress</title>
+</head>
+<body>
+    <div class="progress"></div>
+    <div class="wrap">
+        <div class="section" style="--bc:#BA994D"></div>
+        <div class="section" style="--bc:#7F924F"></div>
+        <div class="section" style="--bc:#4B845D"></div>
+        <div class="section" style="--bc:#257269"></div>
+        <div class="section" style="--bc:#215D68"></div>
+    </div>
+
+    <script>
+        'use strict';
+
+        let progress = document.querySelector('.progress')
+        let totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        window.addEventListener('scroll',()=>{
+            let progressWidth = (window.pageYOffset / totalHeight) * 100
+            progress.style.width = `${progressWidth}%`
+        })
+    </script>
+</body>
+</html>
