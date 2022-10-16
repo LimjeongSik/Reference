@@ -97,13 +97,12 @@
     const scrollCardOnFlip = new ScrollCardOnFlip(mainContent , sticky);
     scrollCardOnFlip.init()
 
-    window.addEventListener('scroll', () => {
-        scrollCardOnFlip.animate()
-    })
     window.addEventListener('resize', () => {
         scrollCardOnFlip.init()
     })
-
+    window.addEventListener('scroll', () => {
+        scrollCardOnFlip.animate()
+    })
  </script>
 </body>
 </html>

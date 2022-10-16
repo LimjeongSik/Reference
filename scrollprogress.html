@@ -24,12 +24,32 @@
     <script>
         'use strict';
 
-        let progress = document.querySelector('.progress')
-        let totalHeight = document.documentElement.scrollHeight - window.innerHeight;
 
+        class ScrollProgress {
+            constructor(doc, progress){
+                this.progress = progress
+                this.docHeight = 0 
+                this.innerHeight = 0
+                this.totalHeight = 0
+            }
+            init(){
+                this.docHeight = doc.scrollHeight
+                this.innerHeight = innerHeight;
+                this.totalHeight = this.docHeight - this.innerHeight
+                
+                this.progress.style.width = `${(pageYOffset / this.totalHeight) * 100}%`
+            }
+        }
+
+        let progress = document.querySelector('.progress')
+        let doc = document.documentElement
+        let scrollProgress = new ScrollProgress(doc, progress)
+        scrollProgress.init()
+        window.addEventListener('resize',()=>{
+            scrollProgress.init()
+        })
         window.addEventListener('scroll',()=>{
-            let progressWidth = (window.pageYOffset / totalHeight) * 100
-            progress.style.width = `${progressWidth}%`
+            scrollProgress.init()
         })
     </script>
 </body>
