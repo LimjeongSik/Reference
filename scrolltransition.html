@@ -14,18 +14,19 @@
 <body>
  <div class="container-fluid">
    <section class="sec"><h2 class="title">Scroll transition</h2></section>
-   <section class="sec offset-left"><img src="images/img.png" alt="" class="img"></section>
+   <section class="sec transitionSection"><img src="images/img.png" alt="" class="img"></section>
    <section class="sec"></section>
    <section class="sec"></section>
    <section class="sec"></section>
  </div>
 
 
-<script src="js/gsap.min.js" charset="utf-8"></script>
-<script src="js/ScrollTrigger.min.js" charset="utf-8"></script>
+
+
+
 
 <script>
-  let container = document.querySelector('.offset-left');
+  let container = document.querySelector('.transitionSection');
   let containerOffsetTop = container.offsetTop;
   let containerOffsetHeight = container.offsetHeight;
   let img = document.querySelector('.img');
@@ -35,7 +36,8 @@
     let windowInnerHeight = window.innerHeight;
     let ratio = (windowScrollY + windowInnerHeight - containerOffsetTop) / containerOffsetHeight;
     
-    img.style.left = Math.min(50 , 50 * ratio) + '%'
+
+    ratio * 50 >= 50 ? (img.style.left = '50%', img.style.opacity = 1) : (img.style.left = `${50 * ratio}%`, img.style.opacity = `${ratio}`)
   });
 </script>
 </body>
