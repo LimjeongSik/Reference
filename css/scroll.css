@@ -1,0 +1,116 @@
+.wrap {
+    width:100%;
+    height:100%;
+    padding-top:4rem;
+    background-color:#212121;
+}
+.header {
+    position:fixed;
+    left:0;
+    top:0;
+    display:flex;
+    align-items:center;
+    width:100%;
+    height:4rem;
+    box-shadow: 0px 1px 0px rgba(242,236,255,0.15);
+    box-sizing:border-box;
+    padding:0 1rem;
+}
+.header h2 {
+    font-size:1.25rem;
+    font-weight:var(--extrabold);
+    -webkit-text-stroke: 1px #FAF7FF;
+    -webkit-background-clip: text;
+    color:transparent;
+    text-transform:uppercase;
+    background-image:linear-gradient(0deg, #FAF7FF , #FAF7FF);
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+    animation:textAnimate 8s linear;
+}
+@keyframes textAnimate {
+    0%{
+        background-size:0% 100%;
+    }
+    50%{
+        background-size:100% 100%;
+    }
+    100% {
+        background-size:0% 100%;
+    }
+}
+.section {
+    width:100%;
+    height:100vh;
+    background-color:#212121;
+    box-sizing:border-box;
+    padding:1rem;
+}
+.scroll-view {
+    width:100%;
+    height:500vh;
+    background-color:#292929;
+}
+.sticky {
+    position:sticky;
+    top:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    height:100vh;
+    box-sizing:border-box;
+}
+.card-wrap {
+    position:absolute;
+    width:95vw;
+    height:30vw;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    transform-style:preserve-3d;
+    -webkit-transform-style: perserve-3d;
+}
+.card {
+    width:24%;
+    height:100%;
+    flex-shrink: 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.5rem;
+    font-weight:var(--extrabold);
+    position:relative;
+    transform-style:preserve-3d;
+    transform:perspective(100vw) translateX(100vw) rotateY(180deg);
+    transition: transform 0.1s;
+}
+.card-main , .card .card-back {
+    position: absolute;
+    width:100%;
+    height:100%;
+    border-radius:1vw;
+    overflow: hidden;
+    backface-visibility: hidden;
+    box-sizing:border-box;
+    box-shadow:1px 2px 10px 0px rgba(0,0,0,0.3),
+    2px 3px 15px 1px rgba(0,0,0,0.45);
+}
+.card-main {
+    background-color:#FAF7FF;
+    font-size:1.5rem;
+    dislay:flex;
+    justify-content: center;
+    text-align:center;
+    color:#3B393F
+}
+.card-back {
+    transform:rotateY(180deg);
+    background-color:#ACA9BB;
+    background-image:repeating-linear-gradient(0deg , #474554, #474554 33.3%, #ffffff00 0% , #ffffff00 67%);
+    background-size:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#FAF7FF
+}
