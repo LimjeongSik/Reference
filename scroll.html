@@ -18,6 +18,12 @@
         </div>
         <div class="contents">
             <div class="section">
+                <h1>Lorem</h1>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et hic nisi pariatur at molestiae ipsum facere debitis aliquam ab, expedita soluta eaque. Numquam, vel adipisci repudiandae non consequatur unde soluta?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et hic nisi pariatur at molestiae ipsum facere debitis aliquam ab, expedita soluta eaque. Numquam, vel adipisci repudiandae non consequatur unde soluta?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et hic nisi pariatur at molestiae ipsum facere debitis aliquam ab, expedita soluta eaque. Numquam, vel adipisci repudiandae non consequatur unde soluta?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et hic nisi pariatur at molestiae ipsum facere debitis aliquam ab, expedita soluta eaque. Numquam, vel adipisci repudiandae non consequatur unde soluta?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Et hic nisi pariatur at molestiae ipsum facere debitis aliquam ab, expedita soluta eaque. Numquam, vel adipisci repudiandae non consequatur unde soluta?
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Et hic nisi pariatur at molestiae ipsum facere debitis aliquam ab, expedita soluta eaque. Numquam, vel adipisci repudiandae non consequatur unde soluta?
             </div>
             <div class="scroll-view">
@@ -45,5 +51,71 @@
             <div class="section"></div>
         </div>
     </div>
+
+    <script>
+        'use strict';
+        class ScrollCardFlip {
+            constructor(wrapper, sticky){
+                this.wrapper = wrapper
+                this.sticky = sticky
+                this.card = sticky.querySelectorAll('.card')
+                this.length = this.card.length
+                this.start = 0
+                this.end = 0
+                this.step = 0
+            }
+            
+            init(){
+                this.start = this.wrapper.offsetTop
+                this.end = this.wrapper.offsetTop + this.wrapper.offsetHeight - innerHeight * 1.2
+                this.step = (this.end - this.start) / (this.length * 2)
+            }
+
+            animate(){
+                this.card.forEach(( item , i )=>{
+                    let s = this.start + this.step * i
+                    let e = s + this.step * (this.length + 1)
+
+                    if(scrollY <= s){
+                        item.style.transform = `
+                        perspective(100vw) 
+                        translateX(100vw) 
+                        rotateY(180deg)
+                        `
+                    }else if (scrollY > s && scrollY <= e - this.step){
+                        item.style.transform = `
+                        perspective(100vw) 
+                        translateX(${100 + (scrollY - s) / (e - s) * -100}vw) 
+                        rotateY(180deg)
+                        `
+                    }else if (scrollY > e - this.step && scrollY <= e ){
+                        item.style.transform = `
+                        perspective(100vw) 
+                        translateX(${100 + (scrollY - s) / (e - s) * -100}vw) 
+                        rotateY(${180 + -(scrollY - (e - this.step)) / this.step * 180}deg)
+                        `
+                    }else if(scrollY > e){
+                        item.style.transform = `
+                        perspective(100vw) 
+                        translateX(0) 
+                        rotateY(0)
+                        `
+                    }
+                })
+            }
+        }
+
+        const scrollView = document.querySelector('.scroll-view')
+        const sticky = document.querySelector('.sticky')
+        const scrollCardFlip = new ScrollCardFlip(scrollView , sticky)
+
+        scrollCardFlip.init()
+        window.addEventListener('resize',()=>{
+            scrollCardFlip.init()
+        })
+        window.addEventListener('scroll',()=>{
+            scrollCardFlip.animate()
+        })
+    </script>
 </body>
 </html>
