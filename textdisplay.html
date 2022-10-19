@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/textdisplay.css">
+    <title>Text Display</title>
+</head>
+<body>
+    <div class="wrap">
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+            Lorem Ipsum has been the industry's standard dummy 
+            text ever since the 1500s, when an unknown printer took 
+            a galley of type and scrambled it to make a type 
+            specimen book. It has survived not only five centuries, 
+            but also the leap into electronic typesetting, 
+            remaining essentially unchanged.
+        </p>
+    </div>
+
+    <script>
+        'use strict';
+        function displayText(elem){
+            const textArray = elem.innerText.split('');
+            const special = ['~', '@', '!', '#', '$', '%', '^', '&', '*']
+            const exception = [' ' , '\n' , '.' , ',']
+
+            const randomIntBetween = (min,max) => {
+                return Math.floor(Math.random() * (max - min + 1) + min)
+            }
+
+            const numArray = []
+            textArray.forEach(char => {
+                const num = randomIntBetween(5 , 40)
+                numArray.push(num)
+            })
+
+
+            let newText
+            let completeCount
+            const timer = setInterval(()=>{
+                completeCount = 0
+                newText = ''
+                numArray.forEach((num,i)=>{
+                    if(exception.includes(textArray[i]) || numArray[i] === 0){
+                        newText += textArray[i]
+                        completeCount += 1
+                    }else {
+                        newText += special[numArray[i] % special.length]
+                        numArray[i] = --num
+                    }
+                })
+                elem.innerText = newText
+                if(completeCount === numArray.length) clearInterval(timer)
+            }, 100)
+        }
+        
+        const p = document.querySelector('p');
+
+        displayText(p)
+
+    </script>
+</body>
+</html>
