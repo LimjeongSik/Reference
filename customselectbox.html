@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/customselectbox.css">
+    <title>Custom Select box</title>
+</head>
+<body>
+    <div class="wrap">
+        <div class="selectbox flex">
+            <span class="select-title">선택</span>
+            <ul class="select-options">
+                <li>선택</li>
+                <li>HTML 5</li>
+                <li>CSS 3</li>
+                <li>JAVASCRIPT</li>
+                <li>JQUERY</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script>
+        let selectBox = document.querySelector('.selectbox')
+        let selectTitle = document.querySelector('.select-title')
+        let selectOptions = document.querySelector('.select-options')
+        let selectOptionsList = document.querySelectorAll('.select-options li')
+
+        selectBox.addEventListener('click',()=>{
+            selectOptions.classList.toggle('on')
+        })
+        selectOptionsList.forEach((item, idx) => {
+            item.addEventListener('click',(e)=>{
+                selectTitle.textContent = e.target.textContent;
+                idx != 0 ? selectTitle.style.color = '#212121' : selectTitle.style.color = 'gray'
+            })
+        })
+
+    </script>
+</body>
+</html>
