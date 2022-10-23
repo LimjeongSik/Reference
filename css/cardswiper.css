@@ -2,6 +2,7 @@ body {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction:column;
   align-items: center;
   justify-content: center;
 }
@@ -25,4 +26,22 @@ body {
   cursor: pointer;
   user-select: none;
   touch-action: none;
+}
+.button {
+  display:flex;
+  align-items:center;
+  gap:20px;
+  grid-gap:20px;
+}
+.button div {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background-color:var(--mian-white);
+  border:1px solid rgba(0,0,0,0.5);
+  cursor: pointer;
+  margin-top:30px;
 }
