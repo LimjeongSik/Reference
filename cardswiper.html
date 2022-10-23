@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/slide.min.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/cardswiper.css" />
+    <title>Card Swiper</title>
+  </head>
+  <body>
+    <div class="frame"></div>
+
+    <script>
+      "use strict";
+      const frame = document.querySelector(".frame");
+      const imgs = [
+        "images/img_1.png",
+        "images/img_2.png",
+        "images/img_3.png",
+        "images/img_4.png",
+      ];
+      let imgCount = 0;
+
+      for (var i = 0; i < 5; i++) {
+        appendCard();
+      }
+
+      let current = frame.querySelector(".card:last-child");
+      let startX = 0,
+        startY = 0,
+        moveX = 0,
+        moveY = 0;
+      addEventListener(current);
+
+      function appendCard() {
+        const firstCard = frame.children[0];
+        const newCard = document.createElement("div");
+        newCard.className = "card";
+        newCard.style.backgroundImage = `url(${
+          imgs[imgCount++ % imgs.length]
+        })`;
+        if (firstCard) frame.insertBefore(newCard, firstCard);
+        else frame.appendChild(newCard);
+      }
+
+      function addEventListener(card) {
+        card.addEventListener("pointerdown", onPointerDown);
+      }
+
+      function setTransform(x, y, deg) {
+        current.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${deg}deg)`;
+      }
+
+      function onPointerDown(e) {
+        startX = e.clientX;
+        startY = e.clientY;
+        current.addEventListener("pointermove", onPointerMove);
+        current.addEventListener("pointerup", onPointerUp);
+        current.addEventListener("pointerleave", onPointerUp);
+      }
+      function onPointerMove(e) {
+        moveX = e.clientX - startX;
+        moveY = e.clientY - startY;
+
+        setTransform(moveX, moveY, 0);
+      }
+      function onPointerUp() {}
+    </script>
+  </body>
+</html>
