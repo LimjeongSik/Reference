@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/slide.min.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/customcursor.css">
+    <title>Custom CurSor</title>
+</head>
+<body>
+    <div class="section" data-cursor="section">Slide Section</div>
+    <a href="#" class="email" data-cursor="link" data-name="Send Email">ol37@naver.com</a>
+    <a href="#" class="address" data-cursor="link" data-name="Show Map">서울틀별시 강남구</a>
+    <div class="imgsection" data-cursor="img">Background</div>
+
+    <div id="cursor">
+        <div></div>
+    </div>
+
+    <script>
+        'use strict';
+
+        const curosrPointer = document.querySelector('#cursor')
+        const cursorChild = curosrPointer.children[0]
+        window.addEventListener('mousemove', mousemove)
+        window.addEventListener('mousedown', mousedown)
+        window.addEventListener('mouseup', mouseup)
+
+        let scale = 1
+        let cursorX = 0 , cursorY = 0
+        let stage = ''
+        let sectionDirection = ''
+        function mousemove(e) {
+            cursorX = e.pageX - curosrPointer.offsetWidth / 2
+            cursorY = e.pageY - curosrPointer.offsetHeight / 2
+            curosrPointer.style.transform = 
+            `translate3d(${cursorX}px, ${cursorY}px, 0)`
+
+
+            switch(e.target.getAttribute('data-cursor')){
+                case 'section':
+                sectionDirection = cursorX < innerWidth / 2 ? 'Prev' : 'Next'
+                cursorChild.setAttribute('data-name', sectionDirection)
+                if(stage === 'stage')return
+                scale = 5
+                stage = 'section'
+                curosrPointer.className = 'cursor-text-mode'
+                break
+
+                case 'link':
+                if(stage === 'link')return
+                scale = 5
+                stage = 'link'
+                cursorChild.setAttribute('data-name', e.target.getAttribute('data-name'))
+                curosrPointer.className = 'cursor-text-mode'
+                break
+
+                case 'img':
+                if(stage === 'img')return
+                scale = 1
+                stage = 'img'
+                cursorChild.setAttribute('data-name', '')
+                curosrPointer.className = ''
+                break
+
+                default:
+                if(stage === '') return
+                scale = 1
+                stage = ''
+                cursorChild.setAttribute('data-name', '')
+                curosrPointer.className = ''
+                break
+            }
+            cursorChild.style.setProperty('--cursor-scale', scale)
+        }
+        function mousedown(e) {
+            scale *= 0.8
+            cursorChild.style.setProperty('--cursor-scale', scale)
+        }
+        function mouseup(e) {
+            scale *= 1.25
+            cursorChild.style.setProperty('--cursor-scale', scale)
+        }
+
+    </script>
+</body>
+</html>
